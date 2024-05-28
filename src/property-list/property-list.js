@@ -6,7 +6,7 @@ const properties = [
         price: 2000000, // price as float
         area: 1476, // area as float
         rooms: 7, // rooms as integer
-        image: '../../../assets/image_2.png',
+        image: '../assets/image_2.png',
         description: 'Ludovic Graillot vous propose à la vente cet ensemble immobilier situé proche de la gare de CHAUMONT. À 5 minutes à pied du centre-ville, venez visiter cet ensemble immobilier composé...'
     },
     {
@@ -16,7 +16,7 @@ const properties = [
         price: 1200000, // price as float
         area: 68, // area as float
         rooms: 3, // rooms as integer
-        image: '../../../assets/image1.jpg',
+        image: '../assets/image1.jpg',
         description: 'Fabrice PAYNE vous propose cet appartement de 2 chambres dans le cadre de ce programme bénéficiant de la nouvelle norme énergétique RE 2020 à quelques pas de la station de métro...'
     },
     {
@@ -26,7 +26,7 @@ const properties = [
         price: 850000, // price as float
         area: 100, // area as float
         rooms: 5, // rooms as integer
-        image: '../../../assets/image3.jpeg',
+        image: '../assets/image3.jpeg',
         description: 'Venez découvrir ce charmant cottage situé dans un quartier calme et verdoyant, idéal pour une famille. Avec ses 5 pièces et son jardin spacieux, il offre un cadre de vie paisible...'
     },
     // Add more properties here...

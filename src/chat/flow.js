@@ -99,7 +99,7 @@ function handleUserResponse(response) {
     }
     
     if (currentNode.id === 'end') {
-        window.location.href = 'http://127.0.0.1:5500/jofrey/src/property-list/property-list.html';
+        window.location.href = 'http://127.0.0.1:5500/src/property-list/property-list.html';
     }
 }
 
