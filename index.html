@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jofrey - Find Your Dream Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="scripts.js" defer></script>
+    <script src="./src/chat/chat.js" defer></script>
+    <script src="./src/chat/flow.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Jofrey</a>
+            </div>
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fa fa-bars" id="menu-icon"></i>
+            </div>
+            <ul id="nav-links">
+                <li><a href="#">Actualité</a></li>
+                <li><a href="#">Acheter</a></li>
+                <li><a href="#">Vendre</a></li>
+                <li><a href="#">Louer</a></li>
+                <button class="btn-sign-up explore-now-btn">Explore now</button>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-text">
+                <h1>Find Your Dream Home</h1>
+                <p>Explore our curated selection of exquisite properties meticulously tailored to your unique dream home vision</p>
+                <button class="btn-sign-up explore-now-btn">Explore now</button>
+            </div>
+            <div class="hero-image">
+                <img src="../assets/house.png" alt="Dream Home">
+            </div>
+        </section>
+        <section class="search-filters-session">
+            <div class="search-filters">
+                <div class="input-wrapper">
+                    <i class="fa fa-map-marker"></i>
+                    <input type="text" placeholder="Location" id="location-input">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa fa-home"></i>
+                    <input type="text" placeholder="Type" id="type-input">
+                </div>
+                <div class="input-wrapper">
+                    <i class="fa fa-dollar"></i>
+                    <input type="number" placeholder="Max Price" id="max-price-input">
+                </div>
+                <button class="btn-sign-up" onclick="handleIndexSearch()">Search</button>
+            </div>
+        </section>
+        <section class="services">
+            <div class="services-content">
+                <div class="service-left">
+                    <img src="../assets/luxury_and_rich_home_exterior_side_view.png" alt="House">
+                </div>
+                <div class="service-right">
+                    <h2>We Help You To Find Your Dream Home</h2>
+                    <p>From cozy cottages to luxurious estates, our dedicated team guides you through every step of the journey, ensuring your dream home becomes a reality</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <h3>8K+</h3>
+                            <p>Houses Available</p>
+                        </div>
+                        <div class="stat">
+                            <h3>6K+</h3>
+                            <p>Houses Sold</p>
+                        </div>
+                        <div class="stat">
+                            <h3>2K+</h3>
+                            <p>Trusted Agents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="why-choose-us">
+            <h2>Why Choose Us</h2>
+            <p>Elevating Your Home Buying Experience with Expertise, Integrity, and Unmatched Personalized Service</p>
+            <div class="features">
+                <div class="feature">
+                    <span class="material-symbols-outlined">
+                        pin_drop
+                    </span>
+                    <h3>Expert Guidance</h3>
+                    <p>Benefit from our team’s seasoned expertise for a smooth buying experience</p>
+                </div>
+                <div class="feature">
+                    <span class="material-symbols-outlined">
+                        menu_book
+                    </span>
+                    <h3>Personalized Service</h3>
+                    <p>Our services adapt to your unique needs, making your journey stress-free</p>
+                </div>
+                <div class="feature">
+                    <span class="material-symbols-outlined">
+                        supervisor_account
+                    </span>
+                    <h3>Transparent Process</h3>
+                    <p>Stay informed with our clear and honest approach to buying your home</p>
+                </div>
+                <div class="feature">
+                    <span class="material-symbols-outlined">
+                        call_quality
+                    </span>
+                    <h3>Exceptional Support</h3>
+                    <p>Providing peace of mind with our responsive and attentive customer service</p>
+                </div>
+            </div>
+        </section>
+        <section class="popular-residences">
+            <h2>Our Popular Residences</h2>
+            <div class="residence-cards">
+                <div class="residence-card">
+                    <img src="../assets/image_2.png" alt="House in San Francisco">
+                    <div class="residence-info">
+                        <h3><i class="fa fa-map-marker"></i> San Francisco, California</h3>
+                        <div class="residence-bed-size">
+                            <p><i class="fa fa-bed"></i> 4 Rooms</p> 
+                            <p><i class="fa fa-expand"></i> 3,500 sq ft</p>
+                        </div>
+                        <div class="residence-footer">
+                            <button class="btn-sign-up">
+                                <span class="material-symbols-outlined">
+                                favorite
+                                </span>
+                            </button>
+                            <p class="price">$2,500,000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="residence-card">
+                    <img src="../assets/image_3.png" alt="House in Beverly Hills">
+                    <div class="residence-info">
+                        <h3><i class="fa fa-map-marker"></i> Beverly Hills, California</h3>
+                        <div class="residence-bed-size">
+                            <p><i class="fa fa-bed"></i> 3 Rooms</p> 
+                            <p><i class="fa fa-expand"></i> 1,500 sq ft</p>
+                        </div>
+                        <div class="residence-footer">
+                            <button class="btn-sign-up">
+                                <span class="material-symbols-outlined">
+                                favorite
+                                </span>
+                            </button>
+                            <p class="price">$850,000</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="residence-card">
+                    <img src="../assets/image_4.png" alt="House in Palo Alto">
+                    <div class="residence-info">
+                        <h3><i class="fa fa-map-marker"></i> Palo Alto, California</h3>
+                        <div class="residence-bed-size">
+                            <p><i class="fa fa-bed"></i> 6 Rooms</p> 
+                            <p><i class="fa fa-expand"></i> 4,000 sq ft</p>
+                        </div>
+                        <div class="residence-footer">
+                            <button class="btn-sign-up">
+                                <span class="material-symbols-outlined">
+                                favorite
+                                </span>
+                            </button>
+                            <p class="price">$3,700,000</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn-sign-up explore_more">Explore now</button>
+        </section>
+        <section class="testimonials">
+            <h2>What People Say About Dwello</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <img src="../assets/testimony3_img.png" alt="Room image">
+                    <div class="testimonial-info">
+                        <img src="../assets/michale_img.png" alt="Sarah Nguyen" class="user-image">
+                        <h3>Sarah Nguyen</h3>
+                        <p>San Francisco</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i> 5.0
+                        </div>
+                        <p>Dwello truly cares about their clients. They listened to my needs and preferences and helped me find the perfect home in the Bay Area. Their professionalism and attention to detail are unmatched.</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="../assets/testimony_img.png" alt="Room image">
+                    <div class="testimonial-info">
+                        <img src="../assets/julie_img.png" alt="Michael Rodriguez" class="user-image">
+                        <h3>Michael Rodriguez</h3>
+                        <p>San Diego</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i> 4.5
+                        </div>
+                        <p>I had a fantastic experience working with Dwello. Their expertise and personalized service exceeded my expectations. I found my dream home quickly and smoothly. Highly recommended!</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="../assets/testimony1_img.png" alt="Room image">
+                    <div class="testimonial-info">
+                        <img src="../assets/emily_img.png" alt="Emily Johnson" class="user-image">
+                        <h3>Emily Johnson</h3>
+                        <p>Los Angeles</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i> 5.0
+                        </div>
+                        <p>Dwello made my dream of owning a home a reality! Their team provided exceptional support and guided me through every step of the process. I couldn't be happier with my new home!</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="../assets/testimony3_img.png" alt="Room image">
+                    <div class="testimonial-info">
+                        <img src="../assets/michale_img.png" alt="Sarah Nguyen" class="user-image">
+                        <h3>Sarah Nguyen</h3>
+                        <p>San Francisco</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i> 5.0
+                        </div>
+                        <p>Dwello truly cares about their clients. They listened to my needs and preferences and helped me find the perfect home in the Bay Area. Their professionalism and attention to detail are unmatched.</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <img src="../assets/testimony_img.png" alt="Room image">
+                    <div class="testimonial-info">
+                        <img src="../assets/julie_img.png" alt="Michael Rodriguez" class="user-image">
+                        <h3>Michael Rodriguez</h3>
+                        <p>San Diego</p>
+                        <div class="rating">
+                            <i class="fa fa-star"></i> 4.5
+                        </div>
+                        <p>I had a fantastic experience working with Dwello. Their expertise and personalized service exceeded my expectations. I found my dream home quickly and smoothly. Highly recommended!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+                <span class="next" onclick="changeSlide(1)">&#10095;</span>
+            </div>
+        </section>
+        <section class="get-help">
+            <h2>Do You Have Any Questions?<br>Get Help From Us</h2>
+            <div class="help-options">
+                <div class="help-option">
+                    <i class="fa fa-comments-o"></i>
+                    <a href="#">Chat live with our Ai support</a>
+                </div>
+                <div class="help-option">
+                    <i class="fa fa-question-circle-o"></i>
+                    <a href="#">Browse our FAQ</a>
+                </div>
+            </div>
+            <form class="help-form">
+                <div class="input-wrapper">
+                    <i class="fa fa-envelope"></i>
+                    <input type="email" placeholder="Enter your email address..." required>
+                </div>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+        </section>
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <p>Copyright © 2024. Jofrey</p>
+                </div>
+                <div class="footer-center logo">
+                    <a href="#">Jofrey</a>
+                </div>
+                <div class="footer-right">
+                    <ul class="social-links">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                    <div class="scroll-top" onclick="scrollToTop()">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <div class="chat-icon" onclick="toggleChat()">
+            <i class="fa fa-comments"></i>
+        </div>
+        <div class="chat-overlay" onclick="toggleChat()"></div>
+        <div class="chat-box">
+            <div class="chat-header">
+                <h3>Chat with us</h3>
+                <span class="close-chat" onclick="toggleChat()">&times;</span>
+            </div>
+            <div class="chat-content" id="chat-content">
+                <!-- Chat messages will be appended here -->
+            </div>
+            <div class="chat-input">
+                <div class="input-wrapper">
+                    <i class="fa fa-envelope"></i>
+                    <input type="text" id="chat-input-field" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                </div>
+                <button onclick="sendMessage()">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </main> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</body>
+</html>
