@@ -10,13 +10,7 @@ function toggleChat() {
             chatBox.classList.add('open');
         }, 10);
         loadChatHistory();
-        loadCurrentNode();
-        if (currentNode.id !== 'end' && chatHistory.length === 0) {
-            appendMessage('system', currentNode.message);
-            if (currentNode.options) {
-                displayOptions(currentNode.options);
-            }
-        }
+        startChatFlow(); // Start the chat flow when the chat box is opened
     } else {
         chatBox.classList.remove('open');
         setTimeout(() => {
@@ -83,15 +77,6 @@ function closeChatAndDisplayProperties() {
     }, 300);
 }
 
-// Function to ask if user wants to add parameters to their search
-function askToAddParameters() {
-    appendMessage('system', currentNode.message);
-    if (currentNode.options) {
-        displayOptions(currentNode.options);
-    }
-}
-
-// Make the chat box draggable
 function makeDraggable(element) {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     const header = document.querySelector('.chat-header');

@@ -1,41 +1,18 @@
-const properties = [
-    {
-        id: 1,
-        name: 'Luxury Villa',
-        city: 'Paris',
-        price: 2000000, // price as float
-        area: 1476, // area as float
-        rooms: 7, // rooms as integer
-        image: '../assets/image_2.png',
-        description: 'Ludovic Graillot vous propose à la vente cet ensemble immobilier situé proche de la gare de CHAUMONT. À 5 minutes à pied du centre-ville, venez visiter cet ensemble immobilier composé...'
-    },
-    {
-        id: 2,
-        name: 'Modern Apartment',
-        city: 'Berlin',
-        price: 1200000, // price as float
-        area: 68, // area as float
-        rooms: 3, // rooms as integer
-        image: '../assets/image1.jpg',
-        description: 'Fabrice PAYNE vous propose cet appartement de 2 chambres dans le cadre de ce programme bénéficiant de la nouvelle norme énergétique RE 2020 à quelques pas de la station de métro...'
-    },
-    {
-        id: 3,
-        name: 'Cozy Cottage',
-        city: 'London',
-        price: 850000, // price as float
-        area: 100, // area as float
-        rooms: 5, // rooms as integer
-        image: '../assets/image3.jpeg',
-        description: 'Venez découvrir ce charmant cottage situé dans un quartier calme et verdoyant, idéal pour une famille. Avec ses 5 pièces et son jardin spacieux, il offre un cadre de vie paisible...'
-    },
-    // Add more properties here...
-];
+const localhost_api = "http://localhost:3000" ;
+const localhost_app = "http://http://127.0.0.1:5500" ;
 
-document.addEventListener('DOMContentLoaded', () => {
-    const criteria = JSON.parse(localStorage.getItem('searchCriteria'));
+let properties = [];
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Before loading properties, searchCriteria:', localStorage.getItem('searchCriteria'));
+
+    properties = await fetchProperties();
+
+    // Debugging log to verify `searchCriteria`
+    const criteria = JSON.parse(localStorage.getItem('searchCriteria')) || {};
+    console.log('Loaded search criteria:', criteria);
+
     if (criteria) {
-        document.getElementById('location-input').value = criteria.city || '';
+        document.getElementById('location-input').value = criteria.city || 'paris';
         document.getElementById('type-input').value = criteria.type || '';
         document.getElementById('min-price').value = criteria.priceMin || '';
         document.getElementById('max-price').value = criteria.priceMax || '';
@@ -45,6 +22,20 @@ document.addEventListener('DOMContentLoaded', () => {
         handleSearch();
     }
 });
+
+async function fetchProperties() {
+    try {
+        const response = await fetch(`${localhost_api}/api/properties`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const properties = await response.json();
+        return properties;
+    } catch (error) {
+        console.error('Error fetching properties:', error);
+        return [];
+    }
+}
 
 function handleSearch() {
     const city = document.getElementById('location-input').value;
@@ -154,17 +145,11 @@ function startChatFlowWithProperty(propertyName) {
     currentNode = chatFlowGraph.propertydetail;
     appendMessage('system', currentNode.message + propertyName + '?');
     displayOptions(currentNode.options, handleUserResponse);
-    saveCurrentNode()
+    saveCurrentNode();
 }
 
 // Attach event listeners to input fields
 document.querySelectorAll('.property-search-filters input').forEach(input => {
     input.addEventListener('input', handleSearch);
 });
-
-function toggleFilterPopup() {
-    const filterPopup = document.querySelector('.filter-popup');
-    filterPopup.style.display = filterPopup.style.display === 'none' || filterPopup.style.display === '' ? 'block' : 'none';
-}
-
 
