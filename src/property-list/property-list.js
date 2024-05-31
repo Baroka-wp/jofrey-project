@@ -1,40 +1,10 @@
-const properties = [
-    {
-        id: 1,
-        name: 'Luxury Villa',
-        city: 'Paris',
-        price: 2000000, // price as float
-        area: 1476, // area as float
-        rooms: 7, // rooms as integer
-        image: '../assets/image_2.png',
-        description: 'Ludovic Graillot vous propose à la vente cet ensemble immobilier situé proche de la gare de CHAUMONT. À 5 minutes à pied du centre-ville, venez visiter cet ensemble immobilier composé...'
-    },
-    {
-        id: 2,
-        name: 'Modern Apartment',
-        city: 'Berlin',
-        price: 1200000, // price as float
-        area: 68, // area as float
-        rooms: 3, // rooms as integer
-        image: '../assets/image1.jpg',
-        description: 'Fabrice PAYNE vous propose cet appartement de 2 chambres dans le cadre de ce programme bénéficiant de la nouvelle norme énergétique RE 2020 à quelques pas de la station de métro...'
-    },
-    {
-        id: 3,
-        name: 'Cozy Cottage',
-        city: 'London',
-        price: 850000, // price as float
-        area: 100, // area as float
-        rooms: 5, // rooms as integer
-        image: '../assets/image3.jpeg',
-        description: 'Venez découvrir ce charmant cottage situé dans un quartier calme et verdoyant, idéal pour une famille. Avec ses 5 pièces et son jardin spacieux, il offre un cadre de vie paisible...'
-    },
-    // Add more properties here...
-];
+let properties = []
+document.addEventListener('DOMContentLoaded', async () => {
+    properties = await fetchProperties();
 
-document.addEventListener('DOMContentLoaded', () => {
     const criteria = JSON.parse(localStorage.getItem('searchCriteria'));
     if (criteria) {
+
         document.getElementById('location-input').value = criteria.city || '';
         document.getElementById('type-input').value = criteria.type || '';
         document.getElementById('min-price').value = criteria.priceMin || '';
@@ -45,6 +15,20 @@ document.addEventListener('DOMContentLoaded', () => {
         handleSearch();
     }
 });
+
+async function fetchProperties() {
+    try {
+        const response = await fetch('https://89eb-137-255-19-87.ngrok-free.app/api/properties');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const properties = await response.json();
+        return properties;
+    } catch (error) {
+        console.error('Error fetching properties:', error);
+        return []; 
+    }
+}
 
 function handleSearch() {
     const city = document.getElementById('location-input').value;

@@ -53,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (criteria) {
         document.getElementById('location-input').value = criteria.city || '';
         document.getElementById('type-input').value = criteria.type || '';
-        document.getElementById('max-price').value = criteria.priceMax || '';
+        document.getElementById('max-price-input').value = criteria.priceMax || '';
 
-        handleSearch();
+        // handleIndexSearch();
     } 
     setInterval(() => {
         changeSlide(1);

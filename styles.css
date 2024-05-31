@@ -778,6 +778,49 @@ body, html {
     gap: 10px;
 }
 
+
+/* Loader */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 20px; */
+    height: 20px;
+    /* background-color: #000; */
+}
+
+.loader .bar {
+    width: 10px;
+    height: 30px;
+    margin: 0 5px;
+    background-color: #f3f3f3;
+    animation: bar-animation 1s infinite ease-in-out;
+}
+
+.loader .bar:nth-child(1) {
+    background-color: #ff8c00;
+    animation-delay: -0.4s;
+}
+
+.loader .bar:nth-child(2) {
+    background-color: #ffd700;
+    animation-delay: -0.2s;
+}
+
+.loader .bar:nth-child(3) {
+    background-color: #ffff00;
+}
+
+@keyframes bar-animation {
+    0%, 40%, 100% {
+        transform: scaleY(1);
+    }
+    20% {
+        transform: scaleY(1.5);
+    }
+}
+
+
 /* media queries */
 
 @media (max-width: 1230px) {
