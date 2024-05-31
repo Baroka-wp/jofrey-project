@@ -63,8 +63,14 @@ const chatFlowGraph = {
         id: 'filter_by_ai',
         message: 'Merci pour vos réponses.',
         options: ['lancer la recherche'],
-        next: "end"
+        next: "ai_response"
     },
+    ai_response: {
+        id: 'ai_response',
+        message: 'Voici les résultats de votre recherche.',
+        options: null,
+        next: 'end'
+    }, 
     end: {
         id: 'end',
         message: 'Merci pour vos réponses.',
@@ -82,7 +88,24 @@ const chatFlowGraph = {
 let currentNode = chatFlowGraph.start;
 
 async function handleUserResponse(response) {
-    if(currentNode && currentNode.id === "filter_by_ai") {
+    if (currentNode) {
+        if (currentNode.options && !currentNode.options.includes(response)) {
+            appendMessage('system', 'Désolé, je n\'ai pas compris votre choix. Veuillez réessayer.');
+            return;
+        } else {
+            currentNode = chatFlowGraph[currentNode.next[response]] || chatFlowGraph[currentNode.next];
+        }
+    }
+
+    if (currentNode) {
+        appendMessage('system', currentNode.message);
+        if (currentNode.options) {
+            displayOptions(currentNode.options);
+        }
+        saveCurrentNode();
+    }
+
+    if (currentNode && currentNode.id === 'filter_by_ai') {
         const savedChatHistory = localStorage.getItem('chat_history');
         try {
             const res = await fetch('http://localhost:3000/api/parse-to-json', {
@@ -94,55 +117,42 @@ async function handleUserResponse(response) {
             });
 
             const data = await res.json();
-            const { city, type, priceMax, priceMin, rooms, area } = data.message;
+            if (data && data.message) {
+                const { city, type, priceMax, priceMin, rooms, area } = data.message;
+                const criteria = { city, type, priceMax, priceMin, rooms, area };
+                localStorage.setItem('searchCriteria', JSON.stringify(criteria));
+                console.log('Search criteria saved:', criteria); // Debugging log
 
-            const criteria = { city, type, priceMax, priceMin, rooms, area };
-            localStorage.setItem('searchCriteria', JSON.stringify(criteria));
 
+                // if (currentNode && currentNode.id === 'end') {
+                window.location.href = 'http://127.0.0.1:5500/src/property-list/property-list.html';
+                // }
+
+            } else {
+                console.error('Invalid response format:', data);
+            }
         } catch (error) {
             console.error('Error:', error);
         }
-    }
 
-    if (currentNode && currentNode.options) {
-        if (!currentNode.options.includes(response)) {
-            appendMessage('system', 'Désolé, je n\'ai pas compris votre choix. Veuillez réessayer.');
-            return;
-        }
-        if (typeof currentNode.next === 'object') {
-            currentNode = chatFlowGraph[currentNode.next[response]];
-        } else {
-            currentNode = chatFlowGraph[currentNode.next];
-        }
-    } else {
-        currentNode = chatFlowGraph[currentNode.next];
-    }
-
-    if (currentNode) {
+        currentNode = chatFlowGraph['end'];
         appendMessage('system', currentNode.message);
-        if (currentNode.options) {
-            displayOptions(currentNode.options);
-        }
         saveCurrentNode();
-    }
-
-    if (currentNode && currentNode.id === 'end') {
-        window.location.href = 'http://localhost:3000/src/property-list/property-list.html';
     }
 }
 
 async function handleChatFlow(sender, message) {
     appendMessage(sender, message);
     if (sender === 'client') {
-        if (currentNode.id === 'end') {
-            handleUserResponse(message);
+        handleUserResponse(message);
 
+        if (currentNode.id === 'end') {
             const loader = createLoader();
             document.getElementById('chat-content').appendChild(loader);
             document.getElementById('chat-content').scrollTop = document.getElementById('chat-content').scrollHeight;
 
             try {
-                const res = await fetch('https://89eb-137-255-19-87.ngrok-free.app/api/generate', {
+                const res = await fetch('http://localhost:3000/api/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -185,10 +195,19 @@ function displayOptions(options) {
 
 function startChatFlow() {
     loadCurrentNode();
-    if (currentNode.id !== 'end' && currentNode.id === chatFlowGraph.start.id) {
-        appendMessage('system', currentNode.message);
-        if (currentNode.options) {
-            displayOptions(currentNode.options);
+    if (currentNode.id === chatFlowGraph.start.id) {
+        while (currentNode.id !== 'filter_by_ai' && currentNode.next) {
+            appendMessage('system', currentNode.message);
+            if (currentNode.options) {
+                displayOptions(currentNode.options);
+                break;
+            } else {
+                currentNode = chatFlowGraph[currentNode.next];
+            }
+        }
+
+        if (currentNode.id === 'filter_by_ai') {
+            handleUserResponse('lancer la recherche'); // Automatically move to next step
         }
     }
     saveCurrentNode();

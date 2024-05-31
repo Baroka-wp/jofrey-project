@@ -1,11 +1,15 @@
-let properties = []
+let properties = [];
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('Before loading properties, searchCriteria:', localStorage.getItem('searchCriteria'));
+
     properties = await fetchProperties();
 
-    const criteria = JSON.parse(localStorage.getItem('searchCriteria'));
-    if (criteria) {
+    // Debugging log to verify `searchCriteria`
+    const criteria = JSON.parse(localStorage.getItem('searchCriteria')) || {};
+    console.log('Loaded search criteria:', criteria);
 
-        document.getElementById('location-input').value = criteria.city || '';
+    if (criteria) {
+        document.getElementById('location-input').value = criteria.city || 'paris';
         document.getElementById('type-input').value = criteria.type || '';
         document.getElementById('min-price').value = criteria.priceMin || '';
         document.getElementById('max-price').value = criteria.priceMax || '';
@@ -18,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function fetchProperties() {
     try {
-        const response = await fetch('https://89eb-137-255-19-87.ngrok-free.app/api/properties');
+        const response = await fetch('http://localhost:3000/api/properties');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -26,7 +30,7 @@ async function fetchProperties() {
         return properties;
     } catch (error) {
         console.error('Error fetching properties:', error);
-        return []; 
+        return [];
     }
 }
 
@@ -138,17 +142,11 @@ function startChatFlowWithProperty(propertyName) {
     currentNode = chatFlowGraph.propertydetail;
     appendMessage('system', currentNode.message + propertyName + '?');
     displayOptions(currentNode.options, handleUserResponse);
-    saveCurrentNode()
+    saveCurrentNode();
 }
 
 // Attach event listeners to input fields
 document.querySelectorAll('.property-search-filters input').forEach(input => {
     input.addEventListener('input', handleSearch);
 });
-
-function toggleFilterPopup() {
-    const filterPopup = document.querySelector('.filter-popup');
-    filterPopup.style.display = filterPopup.style.display === 'none' || filterPopup.style.display === '' ? 'block' : 'none';
-}
-
 
