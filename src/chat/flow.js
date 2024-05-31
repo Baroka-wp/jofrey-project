@@ -1,6 +1,9 @@
 
-const localhost_api = "http://localhost:3000" ;
-const localhost_app = "http://http://127.0.0.1:5500" ;
+// const localhost_api = "http://localhost:3000" ;
+// const localhost_app = "http://127.0.0.1:5500" ;
+
+const localhost_api = "https://api.africasamurai.com" ;
+const localhost_app = "https://jofrey.africasamurai.com" ;
 
 
 const chatFlowGraph = {
