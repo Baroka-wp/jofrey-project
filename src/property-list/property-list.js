@@ -1,3 +1,6 @@
+const localhost_api = "http://localhost:3000" ;
+const localhost_app = "http://http://127.0.0.1:5500" ;
+
 let properties = [];
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('Before loading properties, searchCriteria:', localStorage.getItem('searchCriteria'));
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function fetchProperties() {
     try {
-        const response = await fetch('http://localhost:3000/api/properties');
+        const response = await fetch(`${localhost_api}/api/properties`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
