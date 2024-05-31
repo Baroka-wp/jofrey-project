@@ -1,8 +1,4 @@
 
-const localhost_api = "http://localhost:3000" ;
-const localhost_app = "http://http://127.0.0.1:5500" ;
-
-
 const chatFlowGraph = {
     start: {
         id: 'start',
@@ -113,7 +109,7 @@ async function handleUserResponse(response) {
     if (currentNode && currentNode.id === 'filter_by_ai') {
         const savedChatHistory = localStorage.getItem('chat_history');
         try {
-            const res = await fetch(`${localhost_api}/api/parse-to-json`, {
+            const res = await fetch('http://localhost:3000/api/parse-to-json', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -130,7 +126,7 @@ async function handleUserResponse(response) {
 
 
                 // if (currentNode && currentNode.id === 'end') {
-                window.location.href = `${localhost_app}/src/property-list/property-list.html`;
+                window.location.href = 'http://127.0.0.1:5500/src/property-list/property-list.html';
                 // }
 
             } else {
@@ -157,7 +153,7 @@ async function handleChatFlow(sender, message) {
             document.getElementById('chat-content').scrollTop = document.getElementById('chat-content').scrollHeight;
 
             try {
-                const res = await fetch(`${localhost_api}/api/generate`, {
+                const res = await fetch('http://localhost:3000/api/generate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
