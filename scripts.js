@@ -1,3 +1,9 @@
+// const localhost_api = "http://localhost:3000" ;
+// const localhost_app = "http://127.0.0.1:5500" ;
+
+const localhost_api = "https://api.africasamurai.com" ;
+const localhost_app = "https://jofrey.africasamurai.com" ;
+
 function handleIndexSearch() {
     const city = document.getElementById('location-input').value;
     const type = document.getElementById('type-input').value;
@@ -6,7 +12,7 @@ function handleIndexSearch() {
     const criteria = { city, type, maxPrice };
     localStorage.setItem('searchCriteria', JSON.stringify(criteria));
 
-    window.location.href = 'http://127.0.0.1:5500/src/property-list/property-list.html';
+    window.location.href = `${localhost_app}/src/property-list/property-list.html`;
 }
 
 
